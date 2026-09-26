@@ -58,8 +58,8 @@ def main(src, dst):
             pts = [first(g, k) for k in ("start", "mid", "end")]
             ax.plot([float(p[1]) for p in pts], [float(p[2]) for p in pts], "k-", lw=1.5)
 
-    colors = {"mcu": "tab:red", "switch_choc": "tab:blue", "diode": "tab:green",
-              "power": "tab:orange", "reset": "tab:purple", "battery": "tab:brown",
+    colors = {"mcu": "tab:red", "power": "tab:orange", "reset": "tab:purple",
+              "switch_": "tab:blue", "diode": "tab:green", "battery": "tab:brown",
               "mounting": "gray", "display": "tab:pink"}
     for fp in find(root, "footprint"):
         name = fp[1].split(":")[-1]
