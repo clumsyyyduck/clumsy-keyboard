@@ -26,6 +26,8 @@ module.exports = {
     (pad "1" smd rect (at -1.7 0 ${p.r}) (size 1.2 1.2) (layers ${layers}) ${p.to.str})
     (pad "2" smd rect (at 1.7 0 ${p.r}) (size 1.2 1.2) (layers ${layers}) ${p.from.str})
     (fp_line (start -2.6 -0.9) (end -2.6 0.9) (layer "${side}.SilkS") (stroke (width 0.15) (type solid)))
+    (fp_poly (pts (xy -0.3 0) (xy 0.5 -0.5) (xy 0.5 0.5)) (layer "${side}.SilkS") (stroke (width 0.1) (type solid)) (fill solid))
+    (fp_line (start -0.4 -0.5) (end -0.4 0.5) (layer "${side}.SilkS") (stroke (width 0.15) (type solid)))
     (fp_rect (start -1.35 -0.8) (end 1.35 0.8) (layer "${side}.Fab") (stroke (width 0.1) (type solid)) (fill none))
     (fp_rect (start -2.5 -0.85) (end 2.5 0.85) (layer "${side}.CrtYd") (stroke (width 0.05) (type solid)) (fill none))
     `

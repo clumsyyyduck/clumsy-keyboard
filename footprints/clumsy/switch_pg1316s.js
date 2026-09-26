@@ -22,6 +22,20 @@ module.exports = {
     to: undefined,
   },
   body: p => {
+    // corner marks just outside the mounting pads (pads end at 7.35 x 7), clear of the diode
+    // that sits in the gap to the right (|y| <= 2.3)
+    const silk = side => {
+      const line = (x1, y1, x2, y2) =>
+        `(fp_line (start ${x1} ${y1}) (end ${x2} ${y2}) (layer "${side}.SilkS") (stroke (width 0.15) (type solid)))`
+      const out = []
+      for (const sx of [-1, 1]) {
+        for (const sy of [-1, 1]) {
+          out.push(line(sx * 7.65, sy * 7.35, sx * 5, sy * 7.35))
+          out.push(line(sx * 7.65, sy * 7.35, sx * 7.65, sy * 4.5))
+        }
+      }
+      return out.join('\n    ')
+    }
     const pads = side => `
     (pad "1" smd roundrect (at -2.5 2.65 ${p.r}) (size 1.55 2) (layers "${side}.Cu" "${side}.Paste" "${side}.Mask") (roundrect_rratio 0.15) ${p.from.str})
     (pad "2" smd roundrect (at 2.5 2.65 ${p.r}) (size 1.55 2) (layers "${side}.Cu" "${side}.Paste" "${side}.Mask") (roundrect_rratio 0.15) ${p.to.str})
@@ -29,6 +43,7 @@ module.exports = {
     (pad "" smd roundrect (at 6.35 -6 ${p.r}) (size 2 2) (layers "${side}.Cu" "${side}.Paste" "${side}.Mask") (roundrect_rratio 0.15))
     (pad "" smd roundrect (at -6.35 6 ${p.r}) (size 2 2) (layers "${side}.Cu" "${side}.Paste" "${side}.Mask") (roundrect_rratio 0.15))
     (pad "" smd roundrect (at 6.35 6 ${p.r}) (size 2 2) (layers "${side}.Cu" "${side}.Paste" "${side}.Mask") (roundrect_rratio 0.15))
+    ${silk(side)}
     (fp_rect (start -6.75 -6.5) (end 6.75 6.5) (layer "${side}.Fab") (stroke (width 0.1) (type solid)) (fill none))
     (fp_rect (start -7 -6.75) (end 7 6.75) (layer "${side}.CrtYd") (stroke (width 0.05) (type solid)) (fill none))
     `

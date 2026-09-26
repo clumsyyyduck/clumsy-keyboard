@@ -49,6 +49,8 @@ module.exports = {
     rst: { type: 'net', value: 'RST' },
   },
   body: p => {
+    // silkscreen label for a pad: its net, or the XIAO pin name when the pin is left unconnected
+    const label = key => p[key].name == key && key.startsWith('P') ? 'D' + (ROW_A.concat([...ROW_B].reverse()).indexOf(key)) : p[key].name
     const pad = (side, num, x, y, net) =>
       `(pad "${num}" smd roundrect (at ${x.toFixed(2)} ${y} ${p.r}) (size 1.6 2.6) (layers "${side}.Cu" "${side}.Paste" "${side}.Mask") (roundrect_rratio 0.25) ${p[net].str})`
 
@@ -63,9 +65,23 @@ module.exports = {
       out.push(`(fp_rect (start -10.5 -8.9) (end 10.5 8.9) (layer "${side}.Fab") (stroke (width 0.1) (type solid)) (fill none))`)
       out.push(`(fp_rect (start -11.9 -4.6) (end -9.5 4.6) (layer "${side}.Fab") (stroke (width 0.1) (type solid)) (fill none))`)
       out.push(`(fp_rect (start -12.2 -9.5) (end 10.8 9.5) (layer "${side}.CrtYd") (stroke (width 0.05) (type solid)) (fill none))`)
-      out.push(`(fp_line (start -10.5 -9.3) (end 10.5 -9.3) (layer "${side}.SilkS") (stroke (width 0.15) (type solid)))`)
-      out.push(`(fp_line (start -10.5 9.3) (end 10.5 9.3) (layer "${side}.SilkS") (stroke (width 0.15) (type solid)))`)
-      out.push(`(fp_text user "USB" (at -8 0 ${p.r + 90}) (layer "${side}.Fab") (effects (font (size 1 1) (thickness 0.15))${side == 'B' ? ' (justify mirror)' : ''}))`)
+      const mir = side == 'B' ? ' (justify mirror)' : ''
+      const silk = (x1, y1, x2, y2) =>
+        `(fp_line (start ${x1} ${y1}) (end ${x2} ${y2}) (layer "${side}.SilkS") (stroke (width 0.15) (type solid)))`
+      // module outline: long sides outside the pad rows, short sides clear of the pads
+      out.push(silk(-10.7, -9.5, 10.7, -9.5))
+      out.push(silk(-10.7, 9.5, 10.7, 9.5))
+      out.push(silk(10.7, -9.5, 10.7, 9.5))
+      out.push(silk(-10.7, -9.5, -10.7, -4.8))
+      out.push(silk(-10.7, 4.8, -10.7, 9.5))
+      out.push(`(fp_text user "USB" (at -8 0 ${p.r + 90}) (layer "${side}.Fab") (effects (font (size 1 1) (thickness 0.15))${mir}))`)
+      // net name next to every pad, inside the module outline
+      for (let i = 0; i < 7; i++) {
+        const x = (-7.62 + 2.54 * i).toFixed(2)
+        const ly = mirror ? -5.6 : 5.6
+        out.push(`(fp_text user "${label(ROW_A[i])}" (at ${x} ${ly} ${p.r}) (layer "${side}.SilkS") (effects (font (size 0.7 0.7) (thickness 0.12))${mir}))`)
+        out.push(`(fp_text user "${label(ROW_B[i])}" (at ${x} ${-ly} ${p.r}) (layer "${side}.SilkS") (effects (font (size 0.7 0.7) (thickness 0.12))${mir}))`)
+      }
       return out.join('\n    ')
     }
 
