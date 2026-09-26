@@ -8,14 +8,13 @@
 | 2 | nRF52840 **SuperMini** (Pro Micro, 18×33 мм) | 2 | `ceoloide/mcu_supermini_nrf52840` | ⚠️ Именно SuperMini/«ProMicro NRF52840». XIAO-клоны (в т.ч. YUVASYN Super 52840) **не подходят**: другой размер и распиновка. nice!nano v2 встанет, но доп. пины на обороте у него в другом месте |
 | 3 | Kailh Choc hot-swap сокеты | 42 | `ceoloide/switch_choc_v1_v2` (`choc_v1_support: false`) | Конфиг сейчас под **Choc v2**. Для Choc v1 — поставить `choc_v1_support: true` |
 | 4 | Свитчи Kailh Choc | 42 | — | Версия должна совпадать с сокетами/настройкой п.3 |
-| 5 | Кейкапы Choc 1u | 36 | — | |
-| 6 | Кейкапы Choc 1.5u | 6 | — | Крайняя клавиша thumb-кластера (`key_1_5u`) |
-| 7 | Диоды 1N4148W SOD-123 | 42 | `ceoloide/diode_tht_sod123` | Футпринт универсальный: SMD SOD-123 или выводной |
-| 8 | Разъём JST PH 2.0, 2 pin | 2 | `ceoloide/battery_connector_jst_ph_2` | |
-| 9 | LiPo 3.7 В с разъёмом JST PH 2.0 | 2 | — | 301230 (~110 мА·ч, 3 мм) или 502030 (~250 мА·ч, 5 мм) — толще, учесть в корпусе |
-| 10 | Выключатель Alps SSSS811101 (SMD, боковой) | 2 | `ceoloide/power_switch_smd_side` | |
-| 11 | Тактовая кнопка THT (reset) | 2 | `ceoloide/reset_switch_tht_top` | |
-| 12 | Винты/стойки M2 | 10 комплектов | `ceoloide/mounting_hole_npth` | Длина зависит от корпуса |
+| 5 | Кейкапы Choc 1u | 42 | — | Все клавиши 1u, включая крайнюю thumb |
+| 6 | Диоды 1N4148W SOD-123 | 42 | `ceoloide/diode_tht_sod123` | Футпринт универсальный: SMD SOD-123 или выводной |
+| 7 | Разъём JST PH 2.0, 2 pin | 2 | `ceoloide/battery_connector_jst_ph_2` | |
+| 8 | LiPo 3.7 В с разъёмом JST PH 2.0 | 2 | — | 301230 (~110 мА·ч, 3 мм) или 502030 (~250 мА·ч, 5 мм) — толще, учесть в корпусе |
+| 9 | Выключатель Alps SSSS811101 (SMD, боковой) | 2 | `ceoloide/power_switch_smd_side` | |
+| 10 | Тактовая кнопка THT (reset) | 2 | `ceoloide/reset_switch_tht_top` | |
+| 11 | Винты/стойки M2 | 10 комплектов | `ceoloide/mounting_hole_npth` | Длина зависит от корпуса |
 
 Итого клавиш: 21 на половинку (18 матрица + 3 thumb).
 
