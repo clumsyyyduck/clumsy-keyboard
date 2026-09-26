@@ -21,7 +21,7 @@ points:
       anchor:
         - ref: matrix_c4_r3
           shift: [9.5,-22]
-          rotate: -15
+          rotate: -10
       columns:
         c4:
         c5:
@@ -140,7 +140,10 @@ outlines:
         - ref: matrix_c1_r3
           shift: [40,-u/2-20]
           affect: [x,y]
-        # дальше край идёт вдоль наклонного ряда, вокруг крайней клавиши запас 1.6 мм
+        # дальше край идёт по низу ряда большого пальца с запасом 1.6 мм
+        - ref: thumbfan_c4_r0
+          shift: [-u/2,-u/2-1.6]
+          affect: [x,y]
         - ref: thumbfan_c6_r0
           shift: [u/2+1.6,-u/2-1.6]
           affect: [x,y]
