@@ -1,0 +1,9 @@
+{
+  "name": "split-kb",
+  "private": true,
+  "scripts": {
+    "gen": "ergogen . -o output --debug",
+    "check": "ergogen . -o output --debug && python3 tools/plot_pcb.py output/pcbs/corne_pcb.kicad_pcb output/pcb_check.png"
+  },
+  "devDependencies": { "ergogen": "4.2.1" }
+}
